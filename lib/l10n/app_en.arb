@@ -1,0 +1,19 @@
+{
+"version":"version",
+"login":"Login",
+"enterYourEmailAndPassword":"Enter your email and password ",
+"email":"Email",
+"password":"Password",
+"dontHaveAccount":"Don't have an account",
+"signup":"Sign Up",
+"alreadyHaveAccount":"Already have account",
+"createAnAccount":"Create an account",
+"deliveryAddress":"Delivery Address",
+"phone":"Mobile",
+"lastName":"Last Name",
+"firstName":"First Name",
+"theCodeWillExpairIn120Second":"The code will expire in 120 second",
+"a4DigitCodeHasBeenSentToYourEmailAddress":"A 4 digit code has been sent to your email address",
+"resendCode":"resend code",
+"done":"Done"
+}

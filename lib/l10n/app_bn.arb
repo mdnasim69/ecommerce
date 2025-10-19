@@ -1,0 +1,19 @@
+{
+"version":"ভার্সন",
+"login":"লগইন করুন",
+"enterYourEmailAndPassword":"আপনার ইমেল এবং পাসওয়ার্ড লিখুন",
+"email":"ইমেল ",
+"password":"পাসওয়ার্ড",
+"dontHaveAccount":"কোন অ্যাকাউন্ট নেই",
+"signup":"সাইন আপ করুন",
+"alreadyHaveAccount":"অ্যাকাউন্ট আছে",
+"createAnAccount":"একটি অ্যাকাউন্ট তৈরি করুন",
+"deliveryAddress":"ডেলিভারি ঠিকানা",
+"phone":"মোবাইল",
+"lastName":"পদবি",
+"firstName":"প্রথম নাম",
+"theCodeWillExpairIn120Second":"কোডটি ১২০ সেকেন্ডের মধ্যে মেয়াদোত্তীর্ণ হবে।",
+"a4DigitCodeHasBeenSentToYourEmailAddress":"আপনার ইমেল ঠিকানায় একটি ৪ সংখ্যার কোড পাঠানো হয়েছে",
+"resendCode":"কোড পুনরায় পাঠান",
+"done":"সম্পন্ন"
+}
