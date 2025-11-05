@@ -1,9 +1,13 @@
+import 'package:ecommerce/Features/Auth/UI/Controllers/SignIn_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/SignUp_Screen.dart';
 import 'package:ecommerce/Features/Auth/UI/Widgets/Logo.dart';
+import 'package:ecommerce/Features/Common/UI/screens/main_bottom_nav_screen.dart';
+import 'package:ecommerce/core/Message/message.dart';
 import 'package:ecommerce/core/extension/localization_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../Widgets/AuthButton.dart';
 
@@ -22,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  SignInController signInController = Get.find<SignInController>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +88,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 16),
-                AuthButton(
-                  text: AppLocalizations.of(context)!.login,
-                  ontap: () {},
+                GetBuilder<SignInController>(
+                  builder: (controller) {
+                    return Visibility(
+                      replacement:Center(child:CircularProgressIndicator(),),
+                      visible:controller.Loading==false,
+                      child: AuthButton(
+                        text: AppLocalizations.of(context)!.login,
+                        ontap: () {
+                          if (_formKey.currentState!.validate()) {
+                            signIn();
+                          }
+                        },
+                      ),
+                    );
+                  }
                 ),
                 SizedBox(height: 40),
                 RichText(
@@ -117,6 +135,19 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  signIn() async{
+    final res = await signInController.signIn(
+      _emailController.text.trim(),
+      _passwordController.text,
+    );
+    if(res){
+      Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (value)=>false);
+    }
+    else{
+      ShowMessage(context, signInController.errorMsg.toString(),true);
+    }
   }
 
   @override

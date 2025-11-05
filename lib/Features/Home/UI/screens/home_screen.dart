@@ -1,4 +1,3 @@
-import 'package:ecommerce/App/app_colors.dart';
 import 'package:ecommerce/App/assets_path.dart';
 import 'package:ecommerce/Features/Common/Controller/Bottom_Nav_Index_Controller.dart';
 import 'package:ecommerce/Features/Home/UI/widgets/CarouselWidget.dart';
@@ -21,32 +20,53 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final textstyle =Theme.of(context).textTheme;
     return Scaffold(
       appBar: buildAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 8),
-            SearchField(),
-            SizedBox(height: 16),
-            CarouselWidget(),
-            SizedBox(height: 8),
-            SectionHeader(onTap: () {
-              Get.find<BottomNavIndexController>().setIndex(1);
-            }, textHeader: "Category"),
-            SizedBox(height: 8),
-            buildCategorySection(),
-            SizedBox(height: 16),
-            SectionHeader(onTap: () {}, textHeader: "Popular"),
-            SizedBox(height: 8),
-            buildPopularSection(),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 8),
+              SearchField(),
+              SizedBox(height: 16),
+              CarouselWidget(),
+              SizedBox(height: 8),
+              SectionHeader(onTap: () {
+                Get.find<BottomNavIndexController>().setIndex(1);
+              }, textHeader: "Category"),
+              SizedBox(height: 8),
+              buildCategorySection(),
+              SizedBox(height: 16),
+              SectionHeader(onTap: () {}, textHeader: "Popular"),
+              SizedBox(height: 8),
+              buildPopularSection(),
+              SizedBox(height: 16),
+              SectionHeader(onTap: () {}, textHeader: "Spacial"),
+              SizedBox(height: 8),
+              buildSpacialSection(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  SingleChildScrollView buildSpacialSection() {
+    return SingleChildScrollView(
+              scrollDirection:Axis.horizontal,
+              child: Row(
+                children: [
+                  ProductCard(),
+                  ProductCard(),
+                  ProductCard(),
+                  ProductCard(),
+                  ProductCard(),
+                  ProductCard(),
+                ],
+              ),
+            );
   }
 
   SingleChildScrollView buildPopularSection() {

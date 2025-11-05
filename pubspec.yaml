@@ -43,6 +43,11 @@ dependencies:
   firebase_auth: ^6.1.0
   carousel_slider: ^5.1.1
   get: ^4.7.2
+  http: ^1.5.0
+  logger: ^2.6.2
+  email_validator: ^3.0.0
+  circular_countdown_timer: ^0.2.3
+  shared_preferences: ^2.5.3
 
 
 dev_dependencies:

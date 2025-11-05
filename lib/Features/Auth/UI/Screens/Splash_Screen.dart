@@ -1,8 +1,10 @@
 import 'package:ecommerce/App/app_configure.dart';
+import 'package:ecommerce/Features/Auth/UI/Controllers/Auth_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/Login_Screen.dart';
 import 'package:ecommerce/Features/Common/UI/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../Widgets/Logo.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,15 +17,28 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+ // AuthController authController =Get.find<AuthController>();
+
   @override
   void initState() {
     super.initState();
     GoToScreen();
+
   }
 
   Future<void> GoToScreen() async {
-    await Future.delayed(Duration(seconds: 3));
-    Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+    await Future.delayed(Duration(seconds: 2));
+    debugPrint("///////////////////////////////////////////////////////////");
+
+    if( await Get.find<AuthController>().IsLogIn()){
+      debugPrint("all okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+      Navigator.pushReplacementNamed(context, MainBottomNavScreen.name,);
+    }
+    else{debugPrint("all okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+      Navigator.pushReplacementNamed(context, LoginScreen.name);
+    }
+
   }
 
   @override

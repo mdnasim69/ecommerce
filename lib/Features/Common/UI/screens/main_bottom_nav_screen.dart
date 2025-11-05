@@ -5,6 +5,8 @@ import 'package:ecommerce/Features/Home/UI/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
+import '../../../WishList/UI/screens/wishList.dart';
+
 class MainBottomNavScreen extends StatefulWidget {
   static const String name = '/main-bottom-nav';
 
@@ -15,12 +17,11 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
-  int _sellectedIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
     CategoryScreen(),
     HomeScreen(),
-    HomeScreen(),
+    WistList(),
   ];
 
   @override

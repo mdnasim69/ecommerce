@@ -1,6 +1,7 @@
 import 'package:ecommerce/App/ControllerBinder.dart';
 import 'package:ecommerce/App/app_colors.dart';
 import 'package:ecommerce/App/app_fonts.dart';
+import 'package:ecommerce/Features/Auth/UI/Screens/Splash_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class _EcommerceState extends State<Ecommerce> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: SplashScreen.name,
       initialBinding:ControllerBinder(),
       onGenerateRoute: AppRoutes.OnGenerateRoute,
       theme: ThemeData(
