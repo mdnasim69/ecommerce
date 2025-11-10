@@ -1,10 +1,14 @@
 import 'package:ecommerce/App/assets_path.dart';
-import 'package:ecommerce/Features/Common/Controller/Bottom_Nav_Index_Controller.dart';
+import 'package:ecommerce/Features/Category/UI/controller/category_controller.dart';
 import 'package:ecommerce/Features/Home/UI/widgets/CarouselWidget.dart';
+import 'package:ecommerce/Features/product/UI/Controller/NewProduct_controller.dart';
+import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controller.dart';
+import 'package:ecommerce/Features/product/UI/screens/SpacialProduct_List.dart';
+import 'package:ecommerce/Features/product/UI/screens/newProduct_List.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import '../../../Common/UI/Controller/Bottom_Nav_Index_Controller.dart';
 import '../../../Common/UI/Widgets/ProductCard.dart';
 import '../widgets/AppBarActionButton.dart';
 import '../widgets/CategoryItem.dart';
@@ -18,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +35,42 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               SizedBox(height: 8),
               SearchField(),
-              SizedBox(height: 16),
-              CarouselWidget(),
-              SizedBox(height: 8),
-              SectionHeader(onTap: () {
-                Get.find<BottomNavIndexController>().setIndex(1);
-              }, textHeader: "Category"),
-              SizedBox(height: 8),
-              buildCategorySection(),
-              SizedBox(height: 16),
-              SectionHeader(onTap: () {}, textHeader: "Popular"),
-              SizedBox(height: 8),
-              buildPopularSection(),
-              SizedBox(height: 16),
-              SectionHeader(onTap: () {}, textHeader: "Spacial"),
-              SizedBox(height: 8),
-              buildSpacialSection(),
+              Column(
+                children: [
+                  SizedBox(height: 16),
+                  CarouselWidget(),
+                  SizedBox(height: 8),
+                  SectionHeader(
+                    onTap: () {
+                      Get.find<BottomNavIndexController>().setIndex(1);
+                    },
+                    textHeader: "Category",
+                  ),
+                  SizedBox(height: 8),
+                  buildCategorySection(),
+                  SizedBox(height: 16),
+                  SectionHeader(
+                    onTap: () {
+                      Navigator.pushNamed(context, NewProductListScreen.name);
+                    },
+                    textHeader: "New",
+                  ),
+                  SizedBox(height: 8),
+                  buildNewSection(),
+                  SizedBox(height: 16),
+                  SectionHeader(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        SpacialProductListScreen.name,
+                      );
+                    },
+                    textHeader: "Spacial",
+                  ),
+                  SizedBox(height: 8),
+                  buildSpacialSection(),
+                ],
+              ),
             ],
           ),
         ),
@@ -53,49 +78,73 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SingleChildScrollView buildSpacialSection() {
-    return SingleChildScrollView(
-              scrollDirection:Axis.horizontal,
-              child: Row(
-                children: [
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                ],
-              ),
-            );
+  Widget buildNewSection() {
+    return GetBuilder<NewProductController>(
+      builder: (controller) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Visibility(
+            visible: controller.initialLoading == false,
+            replacement: SizedBox(
+              height: 90,
+              child: Center(child: CircularProgressIndicator()),
+            ),
+            child: Row(
+              children: controller.ProductList.map((e) {
+                return ProductCard(productModel: e);
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  SingleChildScrollView buildPopularSection() {
-    return SingleChildScrollView(
-            scrollDirection:Axis.horizontal,
+  Widget buildSpacialSection() {
+    return GetBuilder<SpacialProductController>(
+      builder: (controller) {
+        return Visibility(
+          visible: controller.initialLoading == false,
+          replacement: SizedBox(
+            height: 90,
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
-              children: [
-                ProductCard(),
-                ProductCard(),ProductCard(),ProductCard(),ProductCard(),ProductCard(),ProductCard(),
-
-              ],
+              children: controller.ProductList.map((e) {
+                return ProductCard(productModel: e);
+              }).toList(),
             ),
-          );
+          ),
+        );
+      },
+    );
   }
 
   Widget buildCategorySection() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          CategoryItem(text: "Electronic", icon: Icons.lightbulb_outline),
-          CategoryItem(text: "Food", icon: Icons.fastfood_outlined),
-          CategoryItem(text: "Computer", icon: Icons.computer_outlined),
-          CategoryItem(text: "Gift", icon: Icons.style_outlined),
-          CategoryItem(text: "Electronic", icon: Icons.lightbulb_outline),
-          CategoryItem(text: "Electronic", icon: Icons.lightbulb_outline),
-          CategoryItem(text: "Electronic", icon: Icons.lightbulb_outline),
-        ],
-      ),
+    return GetBuilder<CategoryController>(
+      builder: (controller) {
+        return Visibility(
+          visible: controller.initialLoading == false,
+          replacement: SizedBox(
+            height: 90,
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: controller.categoryList.map((e) {
+                return SizedBox(
+                  height: 90,
+                  width: 90,
+                  child: CategoryItem(categoryModel: e),
+                );
+              }).toList(),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -134,7 +183,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         fillColor: Colors.grey.shade200,
         hintText: "Search",
-        hintStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+        hintStyle: Theme
+            .of(context)
+            .textTheme
+            .titleMedium!
+            .copyWith(
           color: Colors.grey,
           fontWeight: FontWeight.w600,
         ),
@@ -143,5 +196,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-

@@ -29,15 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> GoToScreen() async {
     await Future.delayed(Duration(seconds: 2));
-    debugPrint("///////////////////////////////////////////////////////////");
-
-    if( await Get.find<AuthController>().IsLogIn()){
-      debugPrint("all okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-      Navigator.pushReplacementNamed(context, MainBottomNavScreen.name,);
-    }
-    else{debugPrint("all okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-      Navigator.pushReplacementNamed(context, LoginScreen.name);
-    }
+    await Get.find<AuthController>().getData();
+    Navigator.pushReplacementNamed(context, MainBottomNavScreen.name,);
 
   }
 

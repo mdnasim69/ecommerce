@@ -1,4 +1,5 @@
 import 'package:ecommerce/Features/product/UI/screens/product_details.dart';
+import 'package:ecommerce/Features/product/data/productModel.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../App/app_colors.dart';
@@ -6,10 +7,10 @@ import '../../../../App/assets_path.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key,
+    super.key, required this.productModel,
   });
 
-  
+ final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,12 @@ class ProductCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:
                     AppColors.themeColors.withOpacity(0.2),
-                    image: DecorationImage(
-                      image: AssetImage(AssetsPath.laptopPNG),
-                      fit: BoxFit.scaleDown,
-                    ),
+                      image:productModel.photos.isNotEmpty? DecorationImage(
+                      image: NetworkImage(productModel.photos[0]),
+                      fit: BoxFit.fill,
+                    ):null,
                   ),
+                  child:productModel.photos.isEmpty?Icon(Icons.error_outline):null,
                 ),
 
                 Padding(
@@ -47,30 +49,32 @@ class ProductCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "mac book M2 air laptop",
+                       productModel.title,
                         maxLines: 1,
                         style: textstyle.bodySmall!.copyWith(overflow: TextOverflow.ellipsis),
                       ),
-                      Row(
-                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text("44k৳",style:textstyle.bodySmall!.copyWith(color:AppColors.themeColors),),
-                          Wrap(crossAxisAlignment:WrapCrossAlignment.center,
-                            children: [
-                              Icon(Icons.star,size:14,color:Colors.yellow,),
-                              Text("4.0",style:textstyle.bodySmall!.copyWith(color:Colors.black),),
-                              Card(
-                                color:AppColors.themeColors,
-                                child:Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Icon(Icons.favorite,size:12,color:Colors.white,),
-                                ),
-                                shape:RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
-                              )
-                            ],
-                          )
-                        ],
+                      FittedBox(
+                        child: Row(
+                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("${productModel.currentPrice}৳",style:textstyle.bodySmall!.copyWith(color:AppColors.themeColors),),
+                            Wrap(crossAxisAlignment:WrapCrossAlignment.center,
+                              children: [
+                                Icon(Icons.star,size:14,color:Colors.yellow,),
+                                Text(productModel.rating,style:textstyle.bodySmall!.copyWith(color:Colors.black),),
+                                Card(
+                                  color:AppColors.themeColors,
+                                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
+                                  child:Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Icon(Icons.favorite,size:12,color:Colors.white,),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),

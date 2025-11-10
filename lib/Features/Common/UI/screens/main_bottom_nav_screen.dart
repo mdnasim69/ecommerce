@@ -1,11 +1,14 @@
 import 'package:ecommerce/App/app_colors.dart';
+import 'package:ecommerce/Features/Category/UI/controller/category_controller.dart';
 import 'package:ecommerce/Features/Category/UI/screens/Categori_screen.dart';
-import 'package:ecommerce/Features/Common/Controller/Bottom_Nav_Index_Controller.dart';
+import 'package:ecommerce/Features/Common/UI/Controller/Slide_controller.dart';
 import 'package:ecommerce/Features/Home/UI/screens/home_screen.dart';
+import 'package:ecommerce/Features/product/UI/Controller/NewProduct_controller.dart';
+import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-
+import 'package:get/get.dart';
 import '../../../WishList/UI/screens/wishList.dart';
+import '../Controller/Bottom_Nav_Index_Controller.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
   static const String name = '/main-bottom-nav';
@@ -17,6 +20,7 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
+
   List<Widget> screens = [
     HomeScreen(),
     CategoryScreen(),
@@ -24,6 +28,14 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
     WistList(),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    Get.find<SpacialProductController>().getProducts();
+    Get.find<NewProductController>().getProducts();
+    Get.find<CategoryController>().getCategory();
+    Get.find<SlideController>().getSlider();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

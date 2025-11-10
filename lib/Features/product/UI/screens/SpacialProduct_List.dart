@@ -1,46 +1,40 @@
-import 'package:ecommerce/Features/Category/data/categoryModel.dart';
 import 'package:ecommerce/Features/Common/UI/Widgets/ProductCard.dart';
-import 'package:ecommerce/Features/product/UI/Controller/product_controller.dart';
+import 'package:ecommerce/Features/product/UI/Controller/NewProduct_controller.dart';
+import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductList extends StatefulWidget {
-  static const String name = "/productList";
+class SpacialProductListScreen extends StatefulWidget {
+  static const String name = "/SpacialProductList";
 
-  const ProductList({super.key, required this.category});
-
-  final CategoryModel category;
+  const SpacialProductListScreen({super.key,});
 
   @override
-  State<ProductList> createState() => _ProductListState();
+  State<SpacialProductListScreen> createState() => _SpacialProductListScreenState();
 }
 
-class _ProductListState extends State<ProductList> {
-  ProductController productController = ProductController();
- // ProductController productController = Get.find<ProductController>();
+class _SpacialProductListScreenState extends State<SpacialProductListScreen> {
   ScrollController scrollController = ScrollController();
-
+  SpacialProductController spacialProductController =Get.find<SpacialProductController>();
   @override
   void initState() {
     super.initState();
-    productController.getProducts(widget.category.id);
     scrollController.addListener(addMoreData);
   }
 
   void addMoreData() {
     if (scrollController.position.extentAfter < 300) {
-      productController.getProducts(widget.category.id);
+      spacialProductController.getProducts();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.category.title)),
-      body: GetBuilder(
-        init: productController,
+      appBar: AppBar(title: Text("New")),
+      body: GetBuilder<SpacialProductController>(
         builder: (controller) {
-          if (controller.initialLoading){
+          if (controller.initialLoading) {
             return Center(child: CircularProgressIndicator());
           }
           return Column(
@@ -53,7 +47,11 @@ class _ProductListState extends State<ProductList> {
                   ),
                   itemCount: controller.ProductList.length,
                   itemBuilder: (context, index) {
-                    return FittedBox(child: ProductCard(productModel: productController.ProductList[index],));
+                    return FittedBox(
+                      child: ProductCard(
+                        productModel: spacialProductController.ProductList[index],
+                      ),
+                    );
                   },
                 ),
               ),

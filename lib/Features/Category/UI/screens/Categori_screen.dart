@@ -1,7 +1,8 @@
-import 'package:ecommerce/Features/Common/Controller/Bottom_Nav_Index_Controller.dart';
+import 'package:ecommerce/Features/Category/UI/controller/category_controller.dart';
 import 'package:ecommerce/Features/Home/UI/widgets/CategoryItem.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../Common/UI/Controller/Bottom_Nav_Index_Controller.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -11,6 +12,20 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  CategoryController categoryController =Get.find<CategoryController>();
+  ScrollController scrollController = ScrollController();
+  @override
+
+  void initState() {
+    super.initState();
+    scrollController.addListener(getMoreData);
+  }
+
+  void getMoreData(){
+    if(scrollController.position.extentAfter<300){
+      categoryController.getCategory();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -32,14 +47,34 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-            ),
-            itemCount:20,
-            itemBuilder: (context,index){
-              return FittedBox(child: CategoryItem(icon: Icons.fastfood_outlined, text: 'food',));
-            },
+          child: GetBuilder<CategoryController>(
+            builder: (controller) {
+              if(controller.initialLoading){
+                return Center(child:CircularProgressIndicator(),);
+              }
+              return Column(
+                children: [
+                  Expanded(
+                    child: GridView.builder(controller:scrollController,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                      ),
+                      itemCount: controller.categoryList.length,
+                      itemBuilder: (context, index){
+                        return FittedBox(
+                          child: CategoryItem(
+                            categoryModel:controller.categoryList[index],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible:categoryController.Loading==true,
+                      child: LinearProgressIndicator())
+                ],
+              );
+            }
           ),
         ),
       ),

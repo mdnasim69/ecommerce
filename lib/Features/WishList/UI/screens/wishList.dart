@@ -19,7 +19,10 @@ class _WistListState extends State<WistList> {
         ),
         itemCount: 20,
         itemBuilder: (context, index) {
-          return FittedBox(child: ProductCard());
+          return FittedBox(child:
+          //ProductCard()
+            SizedBox()
+          );
         },
       ),
     );

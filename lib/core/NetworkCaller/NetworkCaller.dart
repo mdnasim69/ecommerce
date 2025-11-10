@@ -66,8 +66,12 @@ class NetworkCaller {
     }
   }
 
-  Future<NetworkResponse> GetReqest({required String url}) async {
+  Future<NetworkResponse> GetReqest({required String url, Map<String,dynamic>? params}) async {
     try {
+      url+="?";
+      for(String key in params?.keys ??{}){
+        url+="$key=${params![key]}&";
+      }
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
