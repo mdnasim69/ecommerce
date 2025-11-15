@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../../App/app_colors.dart';
 
 class ProductCarouselWidget extends StatefulWidget {
-  const ProductCarouselWidget({super.key});
-
+  const ProductCarouselWidget({super.key, required this.photos});
+final List photos;
   @override
   State<ProductCarouselWidget> createState() => _ProductCarouselWidgetState();
 }
@@ -26,7 +26,7 @@ class _ProductCarouselWidgetState extends State<ProductCarouselWidget> {
               setState(() {});
             },
           ),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: widget.photos.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -35,9 +35,9 @@ class _ProductCarouselWidgetState extends State<ProductCarouselWidget> {
                   margin: EdgeInsets.symmetric(horizontal: 5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
-                    color: Colors.grey,
+                    color:Colors.transparent,
+                    image: DecorationImage(image: NetworkImage(i),fit: BoxFit.scaleDown)
                   ),
-                  child: Text('text $i', style: TextStyle(fontSize: 16.0)),
                 );
               },
             );
@@ -50,7 +50,7 @@ class _ProductCarouselWidgetState extends State<ProductCarouselWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; i < 5; i++)
+              for (int i = 0; i < widget.photos.length; i++)
                 Container(
                   margin: EdgeInsets.all(2),
                   height: 10,

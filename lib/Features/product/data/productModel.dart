@@ -58,7 +58,7 @@
 class ProductModel {
   final String id;
   final String title;
-  final BrandModel brandModel;
+ // final BrandModel brandModel;
   final int? regularPrice;
   final String rating;
   final int currentPrice;
@@ -66,11 +66,13 @@ class ProductModel {
   final List<String> photos;
   final List<String> sizes;
   final List<String> colors;
+  final String description;
 
   ProductModel({
+    required this.description,
     required this.id,
     required this.title,
-    required this.brandModel,
+  //  required this.brandModel,
     required this.regularPrice,
     required this.rating,
     required this.currentPrice,
@@ -85,9 +87,10 @@ class ProductModel {
     List<dynamic> sizes = jsonData['sizes']??[];
     List<dynamic> colors =jsonData['colors']??[];
     return ProductModel(
+      description: jsonData['description']??'',
       id: jsonData['_id'],
       title: jsonData['title']??'',
-      brandModel:BrandModel.fromJson(jsonData['brand']),
+   //   brandModel:BrandModel.fromJson(jsonData['brand']),
       regularPrice: jsonData['regular_price'],
       rating: jsonData['rating']??"4.0",
       currentPrice: jsonData['current_price'],
@@ -121,10 +124,10 @@ class BrandModel {
 
   factory BrandModel.fromJson(Map<String, dynamic> brandMap) {
     return BrandModel(
-      id: brandMap['_id'],
-      title: brandMap['title'],
-      slug: brandMap['slug'],
-      icon: brandMap['icon'],
+      id: brandMap['_id']??'',
+      title: brandMap['title']??'',
+      slug: brandMap['slug']??'',
+      icon: brandMap['icon']??'',
     );
   }
 }

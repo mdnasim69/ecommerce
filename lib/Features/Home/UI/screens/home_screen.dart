@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 8),
                   SectionHeader(
                     onTap: () {
-                      Get.find<BottomNavIndexController>().setIndex(1);
+                      Get.find<BottomNavIndexController>().setIndex(1,);
                     },
                     textHeader: "Category",
                   ),

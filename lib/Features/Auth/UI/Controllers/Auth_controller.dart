@@ -21,6 +21,7 @@ class AuthController {
   Future<void> getData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     acessToken = sharedPreferences.getString(_tokenKey);
+    debugPrint("?????????????????");
     debugPrint(acessToken);
     String? userData = sharedPreferences.getString(_userKey);
     if (userData!=null) {

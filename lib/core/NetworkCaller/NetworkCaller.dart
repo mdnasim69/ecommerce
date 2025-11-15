@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ecommerce/Features/Auth/UI/Controllers/Auth_controller.dart';
+import 'package:get/get.dart'as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
@@ -45,6 +47,7 @@ class NetworkCaller {
           ResponseBody: ResponseBody,
         );
       } else if (response.statusCode == 401) {
+        clearUserData();
         return NetworkResponse(
           statusCode: response.statusCode,
           IsSuccess: false,
@@ -66,11 +69,14 @@ class NetworkCaller {
     }
   }
 
-  Future<NetworkResponse> GetReqest({required String url, Map<String,dynamic>? params}) async {
+  Future<NetworkResponse> GetReqest({
+    required String url,
+    Map<String, dynamic>? params,
+  }) async {
     try {
-      url+="?";
-      for(String key in params?.keys ??{}){
-        url+="$key=${params![key]}&";
+      url += "?";
+      for (String key in params?.keys ?? {}) {
+        url += "$key=${params![key]}&";
       }
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
@@ -80,12 +86,19 @@ class NetworkCaller {
       requestLog(url: url, header: header);
       Response response = await get(uri, headers: header);
       responseLog(url: url, response: response);
+      final ResponseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final ResponseBody = jsonDecode(response.body);
         return NetworkResponse(
           statusCode: response.statusCode,
           IsSuccess: true,
           ResponseBody: ResponseBody,
+        );
+      } else if (response.statusCode == 401) {
+        clearUserData();
+        return NetworkResponse(
+          statusCode: response.statusCode,
+          IsSuccess: false,
+          erroeMessage: ResponseBody['msg'],
         );
       } else {
         return NetworkResponse(
@@ -224,7 +237,6 @@ class NetworkCaller {
     required Map<String, dynamic> header,
     Map<String, dynamic>? ReqestBody,
   }) {
-
     _logger.i("url=> $url\nheader=> $header\nReqBody=> $ReqestBody");
   }
 
@@ -233,4 +245,9 @@ class NetworkCaller {
       "url=> $url\nstatusCode=>${response.statusCode}\nresponseBody=>${response.body}",
     );
   }
+
+  clearUserData()async{
+    await getx.Get.find<AuthController>().clearData();
+  }
+
 }

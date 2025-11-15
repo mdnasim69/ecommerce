@@ -21,12 +21,12 @@ class SliderModel {
       photoUrl: jsonData['photo_url'] ?? '',
       description: jsonData['description'] ?? '',
       product: jsonData['product'] ?? '',
-      category: jsonData['brand'] ?? '',
-      brand: jsonData['_id'] ?? '',
+      category: jsonData['category'] ?? '',
+      brand: jsonData['brand'] ?? '',
     );
   }
 
-  toJson() {
+ Map<String,dynamic>  toJson(){
     return {
       "_id": id,
       "photo_url": photoUrl,

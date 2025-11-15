@@ -30,7 +30,8 @@ class AppRoutes {
       final CategoryModel category = setting.arguments as CategoryModel;
       widget = ProductList(category: category);
     }else if (setting.name == ProductDetails.name) {
-      widget = ProductDetails();
+      final String productID =setting.arguments as String;
+      widget = ProductDetails(productID:productID,);
     }
     else if (setting.name == NewProductListScreen.name) {
       widget = NewProductListScreen();

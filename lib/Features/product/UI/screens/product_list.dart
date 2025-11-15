@@ -43,6 +43,9 @@ class _ProductListState extends State<ProductList> {
           if (controller.initialLoading){
             return Center(child: CircularProgressIndicator());
           }
+          if(controller.ProductList.isEmpty){
+            return Center(child: Text("Empty item"),);
+          }
           return Column(
             children: [
               Expanded(
