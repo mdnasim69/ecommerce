@@ -17,7 +17,8 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   ProductController productController = ProductController();
- // ProductController productController = Get.find<ProductController>();
+
+  // ProductController productController = Get.find<ProductController>();
   ScrollController scrollController = ScrollController();
 
   @override
@@ -40,11 +41,11 @@ class _ProductListState extends State<ProductList> {
       body: GetBuilder(
         init: productController,
         builder: (controller) {
-          if (controller.initialLoading){
+          if (controller.initialLoading) {
             return Center(child: CircularProgressIndicator());
           }
-          if(controller.ProductList.isEmpty){
-            return Center(child: Text("Empty item"),);
+          if (controller.ProductList.isEmpty) {
+            return Center(child: Text("Empty item"));
           }
           return Column(
             children: [
@@ -56,7 +57,11 @@ class _ProductListState extends State<ProductList> {
                   ),
                   itemCount: controller.ProductList.length,
                   itemBuilder: (context, index) {
-                    return FittedBox(child: ProductCard(productModel: productController.ProductList[index],));
+                    return FittedBox(
+                      child: ProductCard(
+                        productModel: productController.ProductList[index],
+                      ),
+                    );
                   },
                 ),
               ),

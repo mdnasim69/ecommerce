@@ -17,21 +17,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
- // AuthController authController =Get.find<AuthController>();
+  // AuthController authController =Get.find<AuthController>();
 
   @override
   void initState() {
     super.initState();
     GoToScreen();
-
   }
 
   Future<void> GoToScreen() async {
     await Future.delayed(Duration(seconds: 2));
     await Get.find<AuthController>().getData();
-    Navigator.pushReplacementNamed(context, MainBottomNavScreen.name,);
-
+    Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+    // bool res = await Get.find<AuthController>().IsLogIn();
+    // if (res) {
+    //   Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+    // }else{
+    //   Navigator.pushReplacementNamed(context, LoginScreen.name);
+    // }
   }
 
   @override

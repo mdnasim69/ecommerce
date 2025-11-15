@@ -30,7 +30,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
-        'token': ' ',
+        'token': getx.Get.find<AuthController>().acessToken ??'',
       };
       requestLog(url: url, header: header, ReqestBody: RequestBody);
       Response response = await post(
@@ -81,7 +81,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
-        'token': ' ',
+        'token':getx.Get.find<AuthController>().acessToken ??'',
       };
       requestLog(url: url, header: header);
       Response response = await get(uri, headers: header);
@@ -123,7 +123,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
-        'token': ' ',
+        'token': getx.Get.find<AuthController>().acessToken.toString(),
       };
       requestLog(url: url, header: header, ReqestBody: RequestBody);
       Response response = await delete(

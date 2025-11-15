@@ -55,6 +55,9 @@
 // "updatedAt": "2025-03-05T03:16:42.420Z"
 // }
 
+
+
+
 class ProductModel {
   final String id;
   final String title;
@@ -93,8 +96,8 @@ class ProductModel {
    //   brandModel:BrandModel.fromJson(jsonData['brand']),
       regularPrice: jsonData['regular_price'],
       rating: jsonData['rating']??"4.0",
-      currentPrice: jsonData['current_price'],
-      availableQuantity: jsonData['quantity'],
+      currentPrice: jsonData['current_price']??0,
+      availableQuantity: jsonData['quantity']??1,
       photos: List<String>.from(photos),
       sizes:List<String>.from(sizes),
       colors: List<String>.from(colors),

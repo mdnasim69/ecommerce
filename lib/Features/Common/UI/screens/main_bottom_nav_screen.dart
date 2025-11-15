@@ -20,7 +20,6 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
-
   List<Widget> screens = [
     HomeScreen(),
     CategoryScreen(),
@@ -31,18 +30,21 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<SpacialProductController>().getProducts();
-    Get.find<NewProductController>().getProducts();
-    Get.find<CategoryController>().getCategory();
-    Get.find<SlideController>().getSlider();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<SpacialProductController>().getProducts();
+      Get.find<NewProductController>().getProducts();
+      Get.find<CategoryController>().getCategory();
+      Get.find<SlideController>().getSlider();
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<BottomNavIndexController>(
         builder: (controller) {
           return screens[controller.index];
-        }
+        },
       ),
       bottomNavigationBar: GetBuilder<BottomNavIndexController>(
         builder: (controller) {
@@ -58,11 +60,17 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
                 icon: Icon(Icons.category_outlined),
                 label: "category",
               ),
-              NavigationDestination(icon: Icon(Icons.shopping_cart), label: "Cart"),
-              NavigationDestination(icon: Icon(Icons.favorite), label: "wish List"),
+              NavigationDestination(
+                icon: Icon(Icons.shopping_cart),
+                label: "Cart",
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.favorite),
+                label: "wish List",
+              ),
             ],
           );
-        }
+        },
       ),
     );
   }

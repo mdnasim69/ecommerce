@@ -9,6 +9,7 @@ import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controll
 import 'package:ecommerce/core/NetworkCaller/NetworkCaller.dart';
 import 'package:get/get.dart';
 import '../Features/Common/UI/Controller/Bottom_Nav_Index_Controller.dart';
+import '../Features/WishList/UI/Controller/WishListController.dart';
 
 class ControllerBinder extends Bindings{
   @override
@@ -23,5 +24,6 @@ class ControllerBinder extends Bindings{
     Get.put(NewProductController());
     Get.put(SpacialProductController());
     Get.lazyPut(()=>OTPverifyController());
+    Get.put(WishListController());
   }
 }

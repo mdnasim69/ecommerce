@@ -11,6 +11,7 @@ class AppUrls{
     static const ProductsUrl ='$_baseUrl/products';
     static ProductsDetailsUrl(String productID) => '$_baseUrl/products/id/$productID';
     static const AddToCartUrl ='$_baseUrl/cart';
+    static const WishListUrl ='$_baseUrl/wishlist';
 
 
 }

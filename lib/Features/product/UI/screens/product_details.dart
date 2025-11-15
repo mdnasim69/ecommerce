@@ -1,7 +1,6 @@
 import 'package:ecommerce/App/app_colors.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/Auth_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/Login_Screen.dart';
-import 'package:ecommerce/Features/Common/UI/Controller/AddToCart_Controller.dart';
 import 'package:ecommerce/Features/product/UI/Controller/productDetails_controller.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/CarouselWidget.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/ColorsPicker.dart';
@@ -11,8 +10,10 @@ import 'package:ecommerce/core/Message/message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../Common/UI/Controller/AddToCart_controller.dart';
+
 class ProductDetails extends StatefulWidget {
-  static const String name = "/productDetails";
+  static const String name = "productDetails";
   final String productID;
 
   const ProductDetails({super.key, required this.productID});
@@ -25,14 +26,15 @@ class _ProductDetailsState extends State<ProductDetails> {
   ProductDetailsController productDetailsController =
       ProductDetailsController();
   AddToCartController addToCartController = AddToCartController();
-
-  String? _selectedColor;
-  String? _selectedSize;
+  String? Color;
+  String? Size;
 
   @override
   void initState() {
     super.initState();
-    productDetailsController.GetProductDeatails(widget.productID);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      productDetailsController.GetProductDeatails(widget.productID);
+    });
   }
 
   @override
@@ -163,14 +165,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                               ColorsPicker(
                                 colors: controller.productModel.colors,
                                 onChange: (v) {
-                                  _selectedColor = v;
-                                  print(v);
+                                  Color = v;
                                 },
                               ),
                               SizePicker(
                                 onChange: (v) {
-                                  _selectedSize = v;
-                                  print(v);
+                                  Size = v;
                                 },
                                 sizes: controller.productModel.sizes,
                               ),
@@ -235,61 +235,63 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ),
                           ],
                         ),
-                        Positioned(
-                          top: 0,
-                          child: GetBuilder(
-                            init:addToCartController,
-                            builder: (control) {
-                              return Visibility(
-                                visible:control.Loading==false,
-                                replacement:Center(child: CircularProgressIndicator(),),
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    if (controller.productModel.colors.isNotEmpty &&
-                                        _selectedColor == null) {
-                                      ShowMessage(
-                                        context,
-                                        "please select your color",
-                                      );
-                                      return;
-                                    }
-                                    if (controller.productModel.sizes.isNotEmpty &&
-                                        _selectedSize == null) {
-                                      ShowMessage(context, "please select your size");
-                                      print('size missing');
-                                      return;
-                                    }
-                                    if(Get.find<AuthController>().acessToken==null){
-                                      Get.to(LoginScreen());
-                                      return;
-                                    }
-                                    bool res = await addToCartController.AddToCart(
-                                      controller.productModel.id,
-                                    );
-                                    if(res){
-                                      ShowMessage(context, "Product Added to cart");
-                                    }else{
-                                      ShowMessage(context, "Fail ! try again",true);
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.themeColors,
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text("Add to Cart"),
-                                ),
-                              );
-                            }
-                          ),
+                        AddToCartBar(
+                          controller.productModel.colors.isNotEmpty,
+                          controller.productModel.colors.isNotEmpty,
+                          controller.productModel.id,
                         ),
                       ],
                     ),
                   ),
                 ),
               ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget AddToCartBar(bool IsColorsAvailable, bool IsSizeAvailable, ProductId) {
+    return Positioned(
+      top: 0,
+      child: GetBuilder(
+        init: addToCartController,
+        builder: (controller) {
+          return Visibility(
+            visible: controller.Loading == false,
+            replacement: Center(child: CircularProgressIndicator()),
+            child: ElevatedButton(
+              onPressed: () async {
+                if (IsColorsAvailable && Color == null) {
+                  ShowMessage(context, "please select your color");
+                  return;
+                }
+                if (IsSizeAvailable && Size == null) {
+                  ShowMessage(context, "please select your Size");
+                  return;
+                }
+
+                if (Get.find<AuthController>().ValidUser() == false){
+                  Get.to(LoginScreen());
+                  return;
+                }
+                 bool res= await  controller.AddToCart(ProductId);
+
+                if(res){
+                  ShowMessage(context, "added");
+                }else{
+                  ShowMessage(context, controller.errorMsg.toString(),true);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.themeColors,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text("Add to Cart"),
             ),
           );
         },
