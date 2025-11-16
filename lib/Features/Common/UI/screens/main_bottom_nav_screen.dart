@@ -1,4 +1,5 @@
 import 'package:ecommerce/App/app_colors.dart';
+import 'package:ecommerce/Features/Cart/UI/Screens/CartListScreen.dart';
 import 'package:ecommerce/Features/Category/UI/controller/category_controller.dart';
 import 'package:ecommerce/Features/Category/UI/screens/Categori_screen.dart';
 import 'package:ecommerce/Features/Common/UI/Controller/Slide_controller.dart';
@@ -23,14 +24,14 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   List<Widget> screens = [
     HomeScreen(),
     CategoryScreen(),
-    HomeScreen(),
+    CartList(),
     WistList(),
   ];
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_){
       Get.find<SpacialProductController>().getProducts();
       Get.find<NewProductController>().getProducts();
       Get.find<CategoryController>().getCategory();
@@ -51,7 +52,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
           return NavigationBar(
             backgroundColor: Colors.white,
             elevation: 0,
-            indicatorColor: AppColors.themeColors,
+            indicatorColor: AppColors.themeColors1,
             onDestinationSelected: controller.setIndex,
             selectedIndex: controller.index,
             destinations: [

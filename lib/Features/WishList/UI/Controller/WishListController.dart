@@ -1,6 +1,5 @@
 import 'package:ecommerce/App/AppUrls.dart';
-import 'package:ecommerce/Features/WishList/Data/WishProductModel.dart';
-import 'package:ecommerce/Features/product/data/productModel.dart';
+import 'package:ecommerce/Features/Common/data/WishProductModel.dart';
 import 'package:ecommerce/core/NetworkCaller/NetworkCaller.dart';
 import 'package:get/get.dart';
 
@@ -11,12 +10,22 @@ class WishListController extends GetxController {
   int page = 0;
   int? totalPage;
   int? count = 30;
-  List<WishProductModel> productList = [];
+  List<Wish_Cart_ProductModel> productList = [];
   String? errorMsg;
 
-  Future<bool> wishList() async {
+  reSet() {
+    initialLoading = true;
+    Loading = false;
+    IsSuccess = false;
+    page = 0;
+    totalPage;
+    count = 30;
+    productList = [];
+    errorMsg;
+  }
 
-    if(totalPage!=null && page>totalPage!){
+  Future<bool> wishList() async {
+    if (totalPage != null && page > totalPage!) {
       return true;
     }
 
@@ -34,13 +43,13 @@ class WishListController extends GetxController {
     if (response.IsSuccess) {
       IsSuccess = true;
       errorMsg = null;
-      List<WishProductModel> list = [];
+      List<Wish_Cart_ProductModel> list = [];
       for (Map<String, dynamic> product
-        in response.ResponseBody!['data']['results']) {
-        list.add(WishProductModel.formJson(product));
+          in response.ResponseBody!['data']['results']) {
+        list.add(Wish_Cart_ProductModel.formJson(product));
       }
       productList.addAll(list);
-      totalPage=response.ResponseBody!['data']['last_page']??1;
+      totalPage = response.ResponseBody!['data']['last_page'] ?? 1;
     } else {
       errorMsg = response.erroeMessage;
       IsSuccess = false;

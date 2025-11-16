@@ -30,15 +30,15 @@ class _EcommerceState extends State<Ecommerce> {
           filled:true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColors.themeColors, width: 1.5),
+            borderSide: BorderSide(color: AppColors.themeColors1, width: 1.5),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColors.themeColors, width: 1.5),
+            borderSide: BorderSide(color: AppColors.themeColors1, width: 1.5),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColors.themeColors, width: 1.5),
+            borderSide: BorderSide(color: AppColors.themeColors1, width: 1.5),
           ),
         ),
         colorSchemeSeed: AppColors.themeColors,

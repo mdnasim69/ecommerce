@@ -117,18 +117,16 @@ class NetworkCaller {
 
   Future<NetworkResponse> DeleteReqest({
     required String url,
-    required Map<String, dynamic> RequestBody,
   }) async {
     try {
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
-        'token': getx.Get.find<AuthController>().acessToken.toString(),
+        'token': getx.Get.find<AuthController>().acessToken??'',
       };
-      requestLog(url: url, header: header, ReqestBody: RequestBody);
+      requestLog(url: url, header: header,);
       Response response = await delete(
         uri,
-        body: jsonEncode(RequestBody),
         headers: header,
       );
       responseLog(url: url, response: response);
@@ -162,7 +160,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
-        'token': ' ',
+        'token': getx.Get.find<AuthController>().acessToken ??'',
       };
       requestLog(url: url, header: header, ReqestBody: RequestBody);
       Response response = await put(
@@ -201,7 +199,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       Map<String, String> header = {
         'Content-Type': 'application/json',
-        'token': ' ',
+        'token': getx.Get.find<AuthController>().acessToken ??'',
       };
       requestLog(url: url, header: header, ReqestBody: RequestBody);
       Response response = await patch(

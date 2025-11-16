@@ -1,30 +1,35 @@
+import 'package:ecommerce/Features/Common/UI/Controller/AddToWishList_controller.dart';
 import 'package:ecommerce/Features/product/UI/screens/product_details.dart';
 import 'package:ecommerce/Features/product/data/productModel.dart';
+import 'package:ecommerce/core/Message/message.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../App/app_colors.dart';
 import '../../../../App/assets_path.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key, required this.productModel,
-  });
+  const ProductCard({super.key, required this.productModel});
 
- final ProductModel productModel;
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
-    final textstyle =Theme.of(context).textTheme;
+    AddToWishListController addToWishListController = AddToWishListController();
+    final textstyle = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap:(){
-        Navigator.pushNamed(context, ProductDetails.name,arguments:productModel.id);
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          ProductDetails.name,
+          arguments: productModel.id,
+        );
       },
       child: Padding(
-        padding: const EdgeInsets.only(right:8),
+        padding: const EdgeInsets.only(right: 8),
         child: Container(
           width: 120,
           child: Card(
-            color:Colors.white,
+            color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
             ),
@@ -34,14 +39,17 @@ class ProductCard extends StatelessWidget {
                   height: 100,
                   width: 140,
                   decoration: BoxDecoration(
-                    color:
-                    AppColors.themeColors.withOpacity(0.2),
-                      image:productModel.photos.isNotEmpty? DecorationImage(
-                      image: NetworkImage(productModel.photos[0]),
-                      fit: BoxFit.fill,
-                    ):null,
+                    color: AppColors.themeColors.withOpacity(0.2),
+                    image: productModel.photos.isNotEmpty
+                        ? DecorationImage(
+                            image: NetworkImage(productModel.photos[0]),
+                            fit: BoxFit.fill,
+                          )
+                        : null,
                   ),
-                  child:productModel.photos.isEmpty?Icon(Icons.error_outline):null,
+                  child: productModel.photos.isEmpty
+                      ? Icon(Icons.error_outline)
+                      : null,
                 ),
 
                 Padding(
@@ -49,33 +57,70 @@ class ProductCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                       productModel.title,
+                        productModel.title,
                         maxLines: 1,
-                        style: textstyle.bodySmall!.copyWith(overflow: TextOverflow.ellipsis),
+                        style: textstyle.bodySmall!.copyWith(
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       FittedBox(
                         child: Row(
-                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("${productModel.currentPrice}৳",style:textstyle.bodySmall!.copyWith(color:AppColors.themeColors),),
-                            Wrap(crossAxisAlignment:WrapCrossAlignment.center,
+                            Text(
+                              "${productModel.currentPrice}৳",
+                              style: textstyle.bodySmall!.copyWith(
+                                color: AppColors.themeColors1,
+                              ),
+                            ),
+                            Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
                               children: [
-                                Icon(Icons.star,size:14,color:Colors.yellow,),
-                                Text(productModel.rating,style:textstyle.bodySmall!.copyWith(color:Colors.black),),
-                                Card(
-                                  color:AppColors.themeColors,
-                                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
-                                  child:Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Icon(Icons.favorite,size:12,color:Colors.white,),
+                                Icon(
+                                  Icons.star,
+                                  size: 14,
+                                  color: Colors.orange,
+                                ),
+                                Text(
+                                  productModel.rating,
+                                  style: textstyle.bodySmall!.copyWith(
+                                    color: Colors.black,
                                   ),
-                                )
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                   bool res=await addToWishListController.addToWishList(
+                                      productModel.id,
+                                    );
+                                   if(res){
+                                     ShowMessage(context, "Added to your wish list");
+                                   }else{
+                                     ShowMessage(context, addToWishListController.errorMsg.toString());
+                                   }
+                                  },
+                                  child: Card(
+                                    color: Colors.red,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(4),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Icon(
+                                        Icons.favorite,
+                                        size: 12,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
-                            )
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -1,10 +1,11 @@
 import 'package:ecommerce/App/app_colors.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/Auth_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/Login_Screen.dart';
+import 'package:ecommerce/Features/Common/UI/Controller/AddToWishList_controller.dart';
 import 'package:ecommerce/Features/product/UI/Controller/productDetails_controller.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/CarouselWidget.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/ColorsPicker.dart';
-import 'package:ecommerce/Features/product/UI/Widgets/ProductCount_widget.dart';
+import 'package:ecommerce/Features/Common/UI/Widgets/ProductCount_widget.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/SizePicker.dart';
 import 'package:ecommerce/core/Message/message.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   ProductDetailsController productDetailsController =
       ProductDetailsController();
   AddToCartController addToCartController = AddToCartController();
+  AddToWishListController addToWishListController = AddToWishListController();
   String? Color;
   String? Size;
 
@@ -119,34 +121,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                                           child: Text(
                                             "Reviews",
                                             style: TextStyle(
-                                              color: AppColors.themeColors,
+                                              color: AppColors.themeColors1,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ),
                                         SizedBox(width: 16),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Card(
-                                            color: AppColors.themeColors,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(4),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(
-                                                3.0,
-                                              ),
-                                              child: Icon(
-                                                Icons.favorite_border,
-                                                size: 16,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        WishButton(controller.productModel.id),
                                       ],
                                     ),
                                   ],
@@ -159,41 +141,47 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              ColorsPicker(
-                                colors: controller.productModel.colors,
-                                onChange: (v) {
-                                  Color = v;
-                                },
-                              ),
-                              SizePicker(
-                                onChange: (v) {
-                                  Size = v;
-                                },
-                                sizes: controller.productModel.sizes,
-                              ),
-                              SizedBox(height: 16),
-                              Text(
-                                "Description",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Visibility(visible: controller.productModel.colors.isNotEmpty,
+                                  child: ColorsPicker(
+                                    colors: controller.productModel.colors,
+                                    onChange: (v) {
+                                      Color = v;
+                                    },
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                controller.productModel.description,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 16,
-                                  color: Colors.grey,
+                                Visibility(
+                                  visible:controller.productModel.sizes.isNotEmpty,
+                                  child: SizePicker(
+                                    onChange: (v) {
+                                      Size = v;
+                                    },
+                                    sizes: controller.productModel.sizes,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 16),
+                                Text(
+                                  "Description",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  controller.productModel.description,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+
                       ],
                     ),
                   ),
@@ -228,7 +216,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Text(
                               "${controller.productModel.currentPrice} ৳",
                               style: TextStyle(
-                                color: AppColors.themeColors,
+                                color: AppColors.themeColors1,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -248,6 +236,33 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget WishButton(String productId) {
+    return GestureDetector(
+      onTap: () async {
+        bool res = await addToWishListController.addToWishList(productId);
+        if (res) {
+          ShowMessage(context, 'Added to your Wish List');
+        } else {
+          ShowMessage(
+            context,
+            addToWishListController.errorMsg.toString(),
+          );
+        }
+      },
+      child: Card(
+        elevation: 0,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Icon(Icons.favorite, size: 22, color: Colors.redAccent),
+        ),
       ),
     );
   }
@@ -272,20 +287,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                   return;
                 }
 
-                if (Get.find<AuthController>().ValidUser() == false){
+                if (Get.find<AuthController>().ValidUser() == false) {
                   Get.to(LoginScreen());
                   return;
                 }
-                 bool res= await  controller.AddToCart(ProductId);
+                bool res = await controller.AddToCart(ProductId);
 
-                if(res){
+                if (res) {
                   ShowMessage(context, "added");
-                }else{
-                  ShowMessage(context, controller.errorMsg.toString(),true);
+                } else {
+                  ShowMessage(context, controller.errorMsg.toString(), true);
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.themeColors,
+                backgroundColor: AppColors.themeColors1,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

@@ -13,20 +13,16 @@ class ProductDetailsController extends GetxController {
   Future<bool> GetProductDeatails(String productID) async {
     Loading = true;
     update();
-    print('start');
     NetworkResponse response = await Get.find<NetworkCaller>().GetReqest(
       url: AppUrls.ProductsDetailsUrl(productID),
     );
-    print("end");
     if(response.IsSuccess){
       errorMsg=null;
       IsSuccess=true;
       _productModel =ProductModel.fromJson(response.ResponseBody!['data']);
-      print('ok');
     }else{
       IsSuccess=false;
       errorMsg=response.erroeMessage;
-      print("not ok");
     }
     Loading=false;
     update();

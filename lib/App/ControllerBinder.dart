@@ -2,6 +2,8 @@ import 'package:ecommerce/Features/Auth/UI/Controllers/Auth_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/OTPverify_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/SignIn_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/SignUp_controller.dart';
+import 'package:ecommerce/Features/Auth/UI/Controllers/UpdateProfileController.dart';
+import 'package:ecommerce/Features/Cart/UI/Controller/CartListItem_controller.dart';
 import 'package:ecommerce/Features/Category/UI/controller/category_controller.dart';
 import 'package:ecommerce/Features/Common/UI/Controller/Slide_controller.dart';
 import 'package:ecommerce/Features/product/UI/Controller/NewProduct_controller.dart';
@@ -24,6 +26,8 @@ class ControllerBinder extends Bindings{
     Get.put(NewProductController());
     Get.put(SpacialProductController());
     Get.lazyPut(()=>OTPverifyController());
+    Get.put(UpdateProfileController());
     Get.put(WishListController());
+    Get.put(CartListController());
   }
 }

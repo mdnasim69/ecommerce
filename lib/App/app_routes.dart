@@ -2,6 +2,7 @@ import 'package:ecommerce/Features/Auth/UI/Screens/Login_Screen.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/OtpCode_Screen.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/SignUp_Screen.dart';
 import 'package:ecommerce/Features/Auth/UI/Screens/Splash_Screen.dart';
+import 'package:ecommerce/Features/Auth/UI/Screens/UpdateProfilescreen.dart';
 import 'package:ecommerce/Features/Category/data/categoryModel.dart';
 import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controller.dart';
 import 'package:ecommerce/Features/product/UI/screens/SpacialProduct_List.dart';
@@ -38,6 +39,9 @@ class AppRoutes {
     }
     else if (setting.name == SpacialProductListScreen.name) {
       widget = SpacialProductListScreen();
+    }
+    else if (setting.name == UpdateProfileScreen.name) {
+      widget = UpdateProfileScreen();
     }
     return MaterialPageRoute(builder: (context) => widget);
   }

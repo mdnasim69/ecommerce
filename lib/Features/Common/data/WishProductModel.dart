@@ -1,21 +1,23 @@
 import 'package:ecommerce/Features/product/data/productModel.dart';
 
-class WishProductModel {
+class Wish_Cart_ProductModel {
   final String id;
   final ProductModel productModel;
   final String user;
-
-  WishProductModel({
+        int quantity;
+  Wish_Cart_ProductModel({
     required this.id,
     required this.productModel,
     required this.user,
+    required this.quantity,
   });
 
-  factory WishProductModel.formJson(Map<String, dynamic> JsonData) {
-    return WishProductModel(
+  factory Wish_Cart_ProductModel.formJson(Map<String, dynamic> JsonData) {
+    return Wish_Cart_ProductModel(
       id: JsonData['_id'],
       productModel: ProductModel.fromJson(JsonData['product']),
       user: JsonData['user']??'',
+      quantity:JsonData["quantity"]??1,
     );
   }
 }

@@ -1,8 +1,10 @@
-import 'package:ecommerce/Features/Common/UI/Widgets/ProductCard.dart';
+import 'package:ecommerce/App/app_colors.dart';
 import 'package:ecommerce/Features/WishList/UI/Controller/WishListController.dart';
+import 'package:ecommerce/Features/WishList/UI/Widgets/WishItem.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+
+import '../../../Common/UI/Controller/Bottom_Nav_Index_Controller.dart';
 
 class WistList extends StatefulWidget {
   const WistList({super.key});
@@ -12,7 +14,7 @@ class WistList extends StatefulWidget {
 }
 
 class _WistListState extends State<WistList> {
- late final WishListController wishListController;
+  late final WishListController wishListController;
   ScrollController scrollController = ScrollController();
 
   @override
@@ -31,33 +33,42 @@ class _WistListState extends State<WistList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Wish List")),
-      body: GetBuilder<WishListController>(
-        // init: wishListController,
-        builder: (controller) {
-          return Visibility(
-            visible: controller.initialLoading == false,
-            replacement: Center(child: CircularProgressIndicator()),
-            child: Column(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) {
+        Get.find<BottomNavIndexController>().setIndex(0);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.themeColors,
+          centerTitle: true,
+          title: Text("Wish List"),
+        ),
+        body: GetBuilder<WishListController>(
+          builder: (controller) {
+            if (controller.initialLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (controller.productList.isEmpty) {
+              return Center(child: Text("Empty Item"));
+            }
+            return Column(
               children: [
                 Expanded(
-                  child: GridView.builder(controller: scrollController,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                    ),
-                    itemCount: controller.productList.length,
-                    itemBuilder: (context, index) {
-                      print(controller.productList[index].productModel.title);
-                      print(controller.productList[index].productModel.id);
-                      print(controller.productList[index].productModel.photos);
-                      return FittedBox(
-                        child: ProductCard(
+                  child: Visibility(
+                    visible: controller.initialLoading == false,
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: controller.productList.length,
+                      itemBuilder: (context, index) {
+                        print(controller.productList[index].id);
+                        return WishItem(
                           productModel:
                               controller.productList[index].productModel,
-                        ),
-                      );
-                    },
+                          WishItemId: controller.productList[index].id,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Visibility(
@@ -65,9 +76,9 @@ class _WistListState extends State<WistList> {
                   child: LinearProgressIndicator(),
                 ),
               ],
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

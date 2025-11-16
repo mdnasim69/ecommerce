@@ -42,7 +42,7 @@ class _SizePickerState extends State<SizePicker> {
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius:BorderRadius.circular(8),
-                    color: selectedSize==colors? AppColors.themeColors:Colors.white,
+                    color: selectedSize==colors? AppColors.themeColors1:Colors.white,
                     border: Border.all(width: 1, color: Colors.black),
                   ),
                   child: Text(

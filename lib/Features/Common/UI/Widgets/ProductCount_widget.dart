@@ -28,7 +28,7 @@ class _ProductcountWidgetState extends State<ProductcountWidget> {
             height: 25,
             width: 25,
             decoration: BoxDecoration(
-              color: AppColors.themeColors,
+              color: AppColors.themeColors1,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Icon(Icons.remove,color:Colors.white,size: 18,),
@@ -59,7 +59,7 @@ class _ProductcountWidgetState extends State<ProductcountWidget> {
             height: 25,
             width: 25,
             decoration: BoxDecoration(
-              color: AppColors.themeColors,
+              color: AppColors.themeColors1,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Icon(Icons.add,color:Colors.white,size:18,),

@@ -68,12 +68,12 @@ class _CarouselWidgetState extends State<CarouselWidget> {
                       width: 10,
                       decoration: BoxDecoration(
                         color: _slideIndex == i
-                            ? AppColors.themeColors.withOpacity(.7)
+                            ? AppColors.themeColors1.withOpacity(.7)
                             : Colors.white,
                         shape: BoxShape.circle,
                         border: Border.all(
                           width: 1,
-                          color: AppColors.themeColors,
+                          color: AppColors.themeColors1,
                         ),
                       ),
                     ),

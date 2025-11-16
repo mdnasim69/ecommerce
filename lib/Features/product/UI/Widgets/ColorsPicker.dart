@@ -12,6 +12,7 @@ class ColorsPicker extends StatefulWidget {
 }
 
 class _ColorsPickerState extends State<ColorsPicker> {
+
   String? selectedColors;
 
   @override
@@ -45,7 +46,7 @@ class _ColorsPickerState extends State<ColorsPicker> {
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius:BorderRadius.circular(8),
-                    color: selectedColors==colors? AppColors.themeColors:Colors.white,
+                    color: selectedColors==colors? AppColors.themeColors1:Colors.white,
                     border: Border.all(width: 1, color: Colors.black),
                   ),
                   child: Text(
