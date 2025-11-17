@@ -55,8 +55,8 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
         ),
         bottomNavigationBar: GetBuilder<BottomNavIndexController>(
           builder: (controller) {
-            return NavigationBar(
-              backgroundColor: Colors.white,
+            return NavigationBar(height:60,
+              backgroundColor: Colors.grey.shade100,
               elevation: 0,
               indicatorColor: AppColors.themeColors1,
               onDestinationSelected: controller.setIndex,

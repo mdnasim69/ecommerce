@@ -30,7 +30,7 @@ class _CartListState extends State<CartList> {
       onPopInvokedWithResult: (_, __) {
         Get.find<BottomNavIndexController>().setIndex(0);
       },
-      child: Scaffold(
+      child: Scaffold(backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
           title: Text("Cart List"),
           centerTitle: true,
@@ -58,6 +58,7 @@ class _CartListState extends State<CartList> {
                   ),
                 ),
                 BuildCheckoutNavBar(),
+                SizedBox(height: 6,)
               ],
             );
           },
@@ -68,14 +69,11 @@ class _CartListState extends State<CartList> {
 
   Widget BuildCheckoutNavBar() {
     return Container(
-      height: 95,
+      height: 70,
       decoration: BoxDecoration(
-        color: AppColors.themeColors.withOpacity(0.1),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
+        color: AppColors.themeColors1.withOpacity(0.1),
+        borderRadius: BorderRadius.all(Radius.circular(8),
+      ),),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(

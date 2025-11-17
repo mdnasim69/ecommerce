@@ -38,7 +38,7 @@ class _WistListState extends State<WistList> {
       onPopInvokedWithResult: (_, __) {
         Get.find<BottomNavIndexController>().setIndex(0);
       },
-      child: Scaffold(
+      child: Scaffold(backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
           backgroundColor: AppColors.themeColors,
           centerTitle: true,

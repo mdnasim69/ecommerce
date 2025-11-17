@@ -38,7 +38,8 @@ class _WishItemCardState extends State<WishItem> {
           arguments: widget.productModel.id,
         );
       },
-      child: Card(
+      child: Card(elevation: 0,shadowColor: Colors.black.withOpacity(0.3),
+        margin:EdgeInsets.symmetric(vertical:4,horizontal:12),
         color: Colors.white,
         child: Row(
           children: [
@@ -75,7 +76,7 @@ class _WishItemCardState extends State<WishItem> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 180,
+                              width: 160,
                               child: Text(
                                 maxLines: 1,
                                 widget.productModel.title,
@@ -159,6 +160,7 @@ class _WishItemCardState extends State<WishItem> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
+                              elevation:0,
                               padding: EdgeInsets.all(0),
                               backgroundColor: Colors.yellow,
                               foregroundColor: Colors.white,
@@ -168,7 +170,7 @@ class _WishItemCardState extends State<WishItem> {
                             ),
                             child: Text(
                               "Add to Cart",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.black,fontSize:12),
                             ),
                           ),
                         ),

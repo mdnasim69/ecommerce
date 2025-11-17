@@ -14,6 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../Common/UI/Controller/Bottom_Nav_Index_Controller.dart';
 import '../../../Common/UI/Widgets/ProductCard.dart';
+import '../../../Common/UI/screens/main_bottom_nav_screen.dart';
 import '../widgets/AppBarActionButton.dart';
 import '../widgets/CategoryItem.dart';
 import '../widgets/SectionHeader.dart';
@@ -303,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           onTap: () {
             Get.find<AuthController>().clearData();
-            Navigator.pop(context);
+            Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (value)=>false);
           },
         ),
 

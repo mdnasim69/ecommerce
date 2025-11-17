@@ -34,7 +34,10 @@ class _WishItemCardState extends State<CartItem> {
           arguments: widget.productModel.id,
         );
       },
-      child: Card(color:  Colors.white,
+      child: Card(
+        elevation: 0,
+        margin:EdgeInsets.symmetric(vertical:4,horizontal:12),
+        color:  Colors.white,
         child: Row(
           children: [
             Padding(

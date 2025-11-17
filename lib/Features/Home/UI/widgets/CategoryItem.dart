@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../App/app_colors.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key, required this.categoryModel});
+  const CategoryItem({super.key,  required this.categoryModel});
 
 final CategoryModel categoryModel ;
 
