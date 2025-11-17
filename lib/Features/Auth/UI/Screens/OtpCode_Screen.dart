@@ -97,9 +97,9 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                       inactiveBorderWidth: 3,
                       activeBorderWidth: 3,
                       errorBorderColor: Colors.red,
-                      selectedColor: AppColors.themeColors,
-                      inactiveColor: AppColors.themeColors,
-                      activeColor: AppColors.themeColors,
+                      selectedColor: AppColors.themeColors1,
+                      inactiveColor: AppColors.themeColors1,
+                      activeColor: AppColors.themeColors1,
                       activeFillColor: Colors.white,
                     ),
                     animationDuration: Duration(milliseconds: 300),
@@ -153,7 +153,7 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                           child: Text(
                             context.local.resendCode,
                             style: textTheme.titleMedium!.copyWith(
-                              color: AppColors.themeColors,
+                              color: AppColors.themeColors1,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                             ),

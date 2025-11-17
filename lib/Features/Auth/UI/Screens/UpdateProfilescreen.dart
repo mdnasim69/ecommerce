@@ -1,6 +1,7 @@
 import 'package:ecommerce/Features/Auth/UI/Controllers/Auth_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/UpdateProfileController.dart';
 import 'package:ecommerce/Features/Auth/data/Models/UpdateProfileResponseModel.dart';
+import 'package:ecommerce/Features/Common/UI/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce/core/Message/message.dart';
 import 'package:ecommerce/core/extension/localization_extension.dart';
 import 'package:email_validator/email_validator.dart';
@@ -188,7 +189,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             );
                             if (res) {
                               Get.find<AuthController>().getData();
-                              Navigator.pop(context);
+                              Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate)=>false);
                               ShowMessage(context, "Profile Updated");
                             } else {
                               ShowMessage(
