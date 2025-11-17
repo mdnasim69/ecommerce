@@ -1,8 +1,10 @@
 import 'package:ecommerce/Features/Common/UI/Controller/AddToWishList_controller.dart';
+import 'package:ecommerce/Features/WishList/UI/Controller/WishListController.dart';
 import 'package:ecommerce/Features/product/UI/screens/product_details.dart';
 import 'package:ecommerce/Features/product/data/productModel.dart';
 import 'package:ecommerce/core/Message/message.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../App/app_colors.dart';
 import '../../../../App/assets_path.dart';
@@ -95,6 +97,7 @@ class ProductCard extends StatelessWidget {
                                     );
                                    if(res){
                                      ShowMessage(context, "Added to your wish list");
+                                     Get.find<WishListController>().wishList();
                                    }else{
                                      ShowMessage(context, addToWishListController.errorMsg.toString());
                                    }

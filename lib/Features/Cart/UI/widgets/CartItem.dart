@@ -5,6 +5,7 @@ import 'package:ecommerce/Features/Common/UI/Widgets/ProductCount_widget.dart';
 import 'package:ecommerce/Features/product/UI/screens/product_details.dart';
 import 'package:ecommerce/Features/product/data/productModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class CartItem extends StatefulWidget {
@@ -39,8 +40,8 @@ class _WishItemCardState extends State<CartItem> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                height: 85,
-                width: 80,
+                height: 75,
+                width: 70,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
@@ -68,11 +69,14 @@ class _WishItemCardState extends State<CartItem> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              widget.productModel.title,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                            Container(
+                              width:180,
+                              child: Text(maxLines:1,
+                                widget.productModel.title,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),overflow:TextOverflow.ellipsis,
                               ),
                             ),
                             Row(

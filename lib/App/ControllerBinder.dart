@@ -5,6 +5,7 @@ import 'package:ecommerce/Features/Auth/UI/Controllers/SignUp_controller.dart';
 import 'package:ecommerce/Features/Auth/UI/Controllers/UpdateProfileController.dart';
 import 'package:ecommerce/Features/Cart/UI/Controller/CartListItem_controller.dart';
 import 'package:ecommerce/Features/Category/UI/controller/category_controller.dart';
+import 'package:ecommerce/Features/Common/UI/Controller/AddToCart_controller.dart';
 import 'package:ecommerce/Features/Common/UI/Controller/Slide_controller.dart';
 import 'package:ecommerce/Features/product/UI/Controller/NewProduct_controller.dart';
 import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controller.dart';
@@ -29,5 +30,6 @@ class ControllerBinder extends Bindings{
     Get.put(UpdateProfileController());
     Get.put(WishListController());
     Get.put(CartListController());
+    Get.lazyPut(()=>AddToCartController());
   }
 }

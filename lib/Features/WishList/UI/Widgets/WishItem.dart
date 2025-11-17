@@ -1,14 +1,20 @@
 import 'package:ecommerce/App/app_colors.dart';
+import 'package:ecommerce/Features/Common/UI/Controller/AddToCart_controller.dart';
 import 'package:ecommerce/Features/Common/UI/Widgets/ProductCount_widget.dart';
 import 'package:ecommerce/Features/WishList/UI/Controller/WishItemDelete_controller.dart';
 import 'package:ecommerce/Features/WishList/UI/Controller/WishListController.dart';
 import 'package:ecommerce/Features/product/UI/screens/product_details.dart';
 import 'package:ecommerce/Features/product/data/productModel.dart';
+import 'package:ecommerce/core/Message/message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WishItem extends StatefulWidget {
-  const WishItem({super.key, required this.productModel, required this.WishItemId});
+  const WishItem({
+    super.key,
+    required this.productModel,
+    required this.WishItemId,
+  });
 
   final ProductModel productModel;
   final String WishItemId;
@@ -18,8 +24,10 @@ class WishItem extends StatefulWidget {
 }
 
 class _WishItemCardState extends State<WishItem> {
-  WishItemDeleteController wishItemDeleteController =WishItemDeleteController();
-  WishListController wishListController =Get.find<WishListController>();
+  WishItemDeleteController wishItemDeleteController =
+      WishItemDeleteController();
+  WishListController wishListController = Get.find<WishListController>();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,6 +39,7 @@ class _WishItemCardState extends State<WishItem> {
         );
       },
       child: Card(
+        color: Colors.white,
         child: Row(
           children: [
             Padding(
@@ -65,43 +74,52 @@ class _WishItemCardState extends State<WishItem> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              widget.productModel.title,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                            SizedBox(
+                              width: 180,
+                              child: Text(
+                                maxLines: 1,
+                                widget.productModel.title,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            Row(
-                              children: [
-                                FittedBox(
-                                  child: Text(
-                                    widget.productModel.colors.isNotEmpty
-                                        ? 'Color: ${widget.productModel.colors[0]}  '
-                                        : "",
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  widget.productModel.sizes.isNotEmpty
-                                      ? 'Size: ${widget.productModel.sizes[0]}'
-                                      : '',
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     FittedBox(
+                            //       child: Text(
+                            //         widget.productModel.colors.isNotEmpty
+                            //             ? 'Color: ${widget.productModel.colors[0]}  '
+                            //             : "",
+                            //       ),
+                            //     ),
+                            //     SizedBox(width: 10),
+                            //     Text(
+                            //       widget.productModel.sizes.isNotEmpty
+                            //           ? 'Size: ${widget.productModel.sizes[0]}'
+                            //           : '',
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
-                        GetBuilder(init:wishItemDeleteController,
+                        GetBuilder(
+                          init: wishItemDeleteController,
                           builder: (controller) {
                             return IconButton(
                               onPressed: () async {
-                               await controller.deleteItem(widget.WishItemId);
-                               await wishListController.reSet();
-                               await wishListController.wishList();
+                                await controller.deleteItem(widget.WishItemId);
+                                await wishListController.reSet();
+                                await wishListController.wishList();
                               },
-                              icon: const Icon(Icons.delete, color: Colors.black),
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.black,
+                              ),
                             );
-                          }
+                          },
                         ),
                       ],
                     ),
@@ -117,9 +135,41 @@ class _WishItemCardState extends State<WishItem> {
                           ),
                         ),
                         SizedBox(
-                          width: 80,
+                          width: 60,
                           child: FittedBox(
                             child: ProductcountWidget(onChange: (int count) {}),
+                          ),
+                        ),
+                        Container(
+                          width: 65,
+                          height: 30,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              bool res = await Get.find<AddToCartController>()
+                                  .AddToCart(widget.productModel.id);
+                              if (res) {
+                                ShowMessage(context, "Added to your cart");
+                              } else {
+                                ShowMessage(
+                                  context,
+                                  Get.find<AddToCartController>().errorMsg
+                                      .toString(),
+                                  false,
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(0),
+                              backgroundColor: Colors.yellow,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              "Add to Cart",
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
                         ),
                       ],

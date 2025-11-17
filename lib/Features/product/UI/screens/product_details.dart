@@ -7,6 +7,7 @@ import 'package:ecommerce/Features/product/UI/Widgets/CarouselWidget.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/ColorsPicker.dart';
 import 'package:ecommerce/Features/Common/UI/Widgets/ProductCount_widget.dart';
 import 'package:ecommerce/Features/product/UI/Widgets/SizePicker.dart';
+import 'package:ecommerce/Features/product/UI/screens/ReviewScreen.dart';
 import 'package:ecommerce/core/Message/message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -117,7 +118,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                                         ),
                                         SizedBox(width: 16),
                                         GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.pushNamed(context, ReviewScreen.name);
+                                          },
                                           child: Text(
                                             "Reviews",
                                             style: TextStyle(

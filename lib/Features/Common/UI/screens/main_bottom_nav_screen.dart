@@ -7,6 +7,7 @@ import 'package:ecommerce/Features/Home/UI/screens/home_screen.dart';
 import 'package:ecommerce/Features/product/UI/Controller/NewProduct_controller.dart';
 import 'package:ecommerce/Features/product/UI/Controller/SpacialProduct_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../WishList/UI/screens/wishList.dart';
 import '../Controller/Bottom_Nav_Index_Controller.dart';
@@ -31,7 +32,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<SpacialProductController>().getProducts();
       Get.find<NewProductController>().getProducts();
       Get.find<CategoryController>().getCategory();
@@ -41,38 +42,72 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<BottomNavIndexController>(
-        builder: (controller) {
-          return screens[controller.index];
-        },
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) {
+        exitDialog();
+      },
+      child: Scaffold(
+        body: GetBuilder<BottomNavIndexController>(
+          builder: (controller) {
+            return screens[controller.index];
+          },
+        ),
+        bottomNavigationBar: GetBuilder<BottomNavIndexController>(
+          builder: (controller) {
+            return NavigationBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              indicatorColor: AppColors.themeColors1,
+              onDestinationSelected: controller.setIndex,
+              selectedIndex: controller.index,
+              destinations: [
+                NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+                NavigationDestination(
+                  icon: Icon(Icons.category_outlined),
+                  label: "category",
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.shopping_cart),
+                  label: "Cart",
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.favorite),
+                  label: "wish List",
+                ),
+              ],
+            );
+          },
+        ),
       ),
-      bottomNavigationBar: GetBuilder<BottomNavIndexController>(
-        builder: (controller) {
-          return NavigationBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            indicatorColor: AppColors.themeColors1,
-            onDestinationSelected: controller.setIndex,
-            selectedIndex: controller.index,
-            destinations: [
-              NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-              NavigationDestination(
-                icon: Icon(Icons.category_outlined),
-                label: "category",
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.shopping_cart),
-                label: "Cart",
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.favorite),
-                label: "wish List",
-              ),
-            ],
-          );
-        },
-      ),
+    );
+  }
+
+  exitDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text("Exit App"),
+          content: Text("Do you want to exit"),
+          actions: [
+            TextButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("Yes"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                SystemNavigator.pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
