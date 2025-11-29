@@ -92,7 +92,7 @@ Md Nasim
 
 GitHub: @mdnasim69
 
-Email: mdnasimnasim2007@mail.com
+Email: mdnasimnasim2007@gmail.com
 
 "I've been learning flutter since 2024 , and this project is a significant step in my learning journey. Feedback and contributions are welcome!"
 
