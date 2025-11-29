@@ -5,7 +5,11 @@ https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&log
 https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white
 https://img.shields.io/badge/GetX-8A2BE2?style=for-the-badge
 
-![image alt](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)
+<p>
+  <img src="[image1.png](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="150"/>
+  <img src="[image2.png](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="150"/>
+  <img src="[image3.png](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="150"/>
+</p>
 
 A feature-rich Flutter e-commerce application built with modern development practices.
 
