@@ -8,13 +8,6 @@ Crafty Bay is a full-fledged e-commerce mobile application that allows users to 
 
 The project demonstrates the implementation of core e-commerce features and state management using the GetX .
 
-Screenshots
-Login & OTP	Product Details & Categories	User Profile & Wishlist
-<img src="[screenshots/1000106931.jpg](https://github.com/mdnasim69/ecommerce/blob/2f3084a1227ab18f6b9f92a4456f6faedab0f179/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="200" />	<img src="screenshots/1000106923.jpg" width="200" />	<img src="screenshots/1000106928.jpg" width="200" />
-Sign Up	Home Drawer	Wishlist
-<img src="screenshots/1000106933.jpg" width="200" />	<img src="screenshots/1000106930.jpg" width="200" />	<img src="screenshots/1000106926.jpg" width="200" />
-(Note: Replace screenshots/ with the actual paths to your images in your repo)
-
 ✨ Features
 User Authentication
 
@@ -42,8 +35,6 @@ User Management
 
 User Profile View and Update
 
-Order History (Planned)
-
 UI/UX
 
 Responsive and Modern Design
@@ -61,26 +52,14 @@ State Management: GetX
 
 Backend & APIs: REST API
 
-Authentication: Firebase (Implied)
+Authentication: Using REST API
 
 Tools: Android Studio, Postman
 
 Version Control: Git & GitHub
 
 🏗️ Project Structure
-The project follows a feature-first, layered architecture for better scalability and separation of concerns.
 
-text
-ecommerce/
-└── lib/
-    ├── main.dart                  # Application entry point
-    └── Features/                  # Feature-based modules
-        └── Category/              # Example Feature: Category
-            ├── UI/                # Contains all UI screens & widgets
-            │   ├── screens/
-            │   └── widgets/
-            ├── controller/        # GetX Controller for business logic
-            └── data/              # Data layer (models, repositories)
 Key Architectural Points:
 
 Features/: Each feature (e.g., Category, Product, Auth, Cart) is contained within its own directory.
@@ -89,7 +68,7 @@ UI/: Holds the views and presentation logic.
 
 controller/: Manages the state and business logic for the feature using GetX.
 
-data/: Handles data models, API calls, and local data sources.
+data/: Handles data models, 
 
 🚀 Getting Started
 Prerequisites
@@ -113,16 +92,11 @@ Run the application
 
 bash
 flutter run
+
 📂 API Integration & State Management
+
 REST API: The app communicates with a backend server using RESTful APIs, integrated and tested via Postman.
 
-GetX: Used for:
-
-State Management: Reactive state management for UI updates.
-
-Route Management: Simplifies navigation between screens.
-
-Dependency Management: Easy and efficient dependency injection.
 
 🔮 Future Enhancements
 Integration with a live payment gateway.
@@ -136,16 +110,13 @@ User review and rating system.
 Dark Mode theme.
 
 👨‍💻 Developer
-Md Nasim Uddin
+Md Nasim 
 
 GitHub: @mdnasim69
 
-Email: nasim@mail.com
+Email: mdnasimnasim2007@mail.com
 
-"I'm a beginner in Flutter, and this project is a significant step in my learning journey. Feedback and contributions are welcome!"
-
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+"I've been learning flutter since 2024 , and this project is a significant step in my learning journey. Feedback and contributions are welcome!"
 
 <div align="center">
 If you found this project helpful, don't forget to ⭐ star the repository!
