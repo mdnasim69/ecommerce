@@ -1,15 +1,4 @@
 <div align="center">
-https://via.placeholder.com/800x200/4A6572/FFFFFF?text=Crafty+Bay+-+Your+One-Stop+Shop <!-- You can add a real banner image later -->
-
-https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white
-https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white
-https://img.shields.io/badge/GetX-8A2BE2?style=for-the-badge
-
-<p>
-  <img src="[image1.png](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="150"/>
-  <img src="[image2.png](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="150"/>
-  <img src="[image3.png](https://github.com/mdnasim69/ecommerce/blob/e233fc9623eb8eab651d506b1b0c495e6d847fcf/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="150"/>
-</p>
 
 A feature-rich Flutter e-commerce application built with modern development practices.
 
@@ -17,11 +6,11 @@ A feature-rich Flutter e-commerce application built with modern development prac
 📱 About The Project
 Crafty Bay is a full-fledged e-commerce mobile application that allows users to browse products, manage their cart, create wishlists, and complete their profile. The app features a clean, intuitive user interface and a scalable architecture.
 
-The project demonstrates the implementation of core e-commerce features and state management using the GetX framework.
+The project demonstrates the implementation of core e-commerce features and state management using the GetX .
 
 Screenshots
 Login & OTP	Product Details & Categories	User Profile & Wishlist
-<img src="screenshots/1000106931.jpg" width="200" />	<img src="screenshots/1000106923.jpg" width="200" />	<img src="screenshots/1000106928.jpg" width="200" />
+<img src="[screenshots/1000106931.jpg](https://github.com/mdnasim69/ecommerce/blob/2f3084a1227ab18f6b9f92a4456f6faedab0f179/assets/images/Screenshot_2025-11-17-11-05-11-44_4cf85880cfe8ba4bfde5d76319ab5d2f.jpg)" width="200" />	<img src="screenshots/1000106923.jpg" width="200" />	<img src="screenshots/1000106928.jpg" width="200" />
 Sign Up	Home Drawer	Wishlist
 <img src="screenshots/1000106933.jpg" width="200" />	<img src="screenshots/1000106930.jpg" width="200" />	<img src="screenshots/1000106926.jpg" width="200" />
 (Note: Replace screenshots/ with the actual paths to your images in your repo)
