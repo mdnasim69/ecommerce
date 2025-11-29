@@ -70,28 +70,6 @@ controller/: Manages the state and business logic for the feature using GetX.
 
 data/: Handles data models, 
 
-🚀 Getting Started
-Prerequisites
-Flutter SDK
-
-Android Studio / VS Code
-
-An emulator or physical device
-
-Installation
-Clone the repository
-
-bash
-git clone https://github.com/mdnasim69/ecommerce.git
-cd ecommerce
-Get dependencies
-
-bash
-flutter pub get
-Run the application
-
-bash
-flutter run
 
 📂 API Integration & State Management
 
